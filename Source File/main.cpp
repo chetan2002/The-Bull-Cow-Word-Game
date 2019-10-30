@@ -1,7 +1,7 @@
 #include<iostream>
 #include<string>
 #include "FBullCowGame.h"
-
+#include<cstdlib>
 using FText = std::string;
 using int32 = int;
 
@@ -22,26 +22,35 @@ int main() {
 		PlayAgain = AskToPlayAgain();
 	} while (PlayAgain);
 	return 0;
- }
+}
 
 
 void PrintIntro() {
 	//Introduce the game
 
+	system("CLS");
 	std::cout << "\n\n Welcome to Bulls and Cows, a fun word game!" << std::endl;
+	BCGame.Reset();
+	
+	std::cout << std::endl;
+	std::cout << "          }   {         ___ " << std::endl;
+	std::cout << "          (o o)        (o o) " << std::endl;
+	std::cout << "   /-------\\ /          \\ /-------\\ " << std::endl;
+	std::cout << "  / | BULL |O            O| COW  | \\ " << std::endl;
+	std::cout << " *  |-,--- |              |------|  * " << std::endl;
+	std::cout << "    ^      ^              ^      ^ " << std::endl;
 	std::cout << "Can you guess the " << BCGame.GetHiddenWordLength() << " letter isogram I'm thinking?" << std::endl;
 
 	return;
 }
 
-void PlayGame(){
+void PlayGame() {
 
-	BCGame.Reset();
 	int32 MaxTries = BCGame.GetMaxTries();
 	std::cout << "MAX TRIES:" << MaxTries << std::endl;
-	
+
 	//loop for required turns
-	
+
 	while (!BCGame.IsGameWon() && BCGame.GetCurrentTry() <= MaxTries) {
 		FText Guess = GetValidGuess();
 
@@ -65,9 +74,9 @@ FText GetValidGuess() {
 	do {
 		//get a guess from player
 		std::cout << std::endl;
-		std::cout << "Try " << CurrentTry << " of " << BCGame.GetMaxTries() ;
-		std::cout<<" . Enter your Guess:";
-		
+		std::cout << "Try " << CurrentTry << " of " << BCGame.GetMaxTries();
+		std::cout << " . Enter your Guess:";
+
 		std::getline(std::cin, Guess);
 
 
@@ -89,7 +98,7 @@ FText GetValidGuess() {
 	return Guess;
 }
 
-bool AskToPlayAgain(){
+bool AskToPlayAgain() {
 
 	std::cout << "Do You want to play again? (Y or N) : ";
 	FText Response = " ";
@@ -105,6 +114,7 @@ void PrintGameSummary()
 	}
 	else {
 		std::cout << "Better Luck Next Time!" << std::endl;
+		std::cout << "Word was :" << BCGame.GetHiddenWord() << std::endl;
 	}
 	return;
 }

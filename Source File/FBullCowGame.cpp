@@ -9,13 +9,13 @@ using FString = std::string;
 using int32 = int;
 
 
-FBullCowGame::FBullCowGame(){ Reset(); }
+FBullCowGame::FBullCowGame() { Reset(); }
 
 int32 FBullCowGame::GetCurrentTry() const { return MyCurrentTry; }
 int32 FBullCowGame::GetHiddenWordLength() const { return MyHiddenWord.length(); }
-bool FBullCowGame::IsGameWon() const {	return bGameIsWon; }
+bool FBullCowGame::IsGameWon() const { return bGameIsWon; }
 
-int32 FBullCowGame::GetMaxTries() const { 
+int32 FBullCowGame::GetMaxTries() const {
 	TMap<int32, int32> WordLengthToMaxTries{ {3,4} , {4,7} , {5,10} , {6,12} , {7,14} , {8,18} , {9,30} };
 	return WordLengthToMaxTries[MyHiddenWord.length()];
 }
@@ -26,36 +26,43 @@ void FBullCowGame::Reset() {
 		"side", "ride", "rides", "mild", "faint", "pain", "sad", "lad", "mad", "word", "isogram", "six", "four", "five",
 		"ready", "shady", "blond", "chemistry", "sir", "failure", "record" };
 
-		srand(time(0));
+	srand(time(NULL));
 	int32 collectionsize = collectionwords.size();
 	int32 LuckyNo = rand() % collectionsize;
 	const FString HIDDEN_WORD = collectionwords[LuckyNo];
 
 
-	
+
 	MyHiddenWord = HIDDEN_WORD;
 	MyCurrentTry = 1;
 	bGameIsWon = false;
 	return;
 }
 
-EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const{
+FString FBullCowGame::GetHiddenWord()
+{
+	return MyHiddenWord;
+}
+
+EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const {
 
 	if (!IsIsogram(Guess)) {
 		return EGuessStatus::Not_Isogram;
-	} else if (!IsLower(Guess)) {
+	}
+	else if (!IsLower(Guess)) {
 		return EGuessStatus::Not_Lowercase;
-	} else if (Guess.length() != GetHiddenWordLength()) {
+	}
+	else if (Guess.length() != GetHiddenWordLength()) {
 		return EGuessStatus::Wrong_Length;
 	}
 	else {
 		return EGuessStatus::OK;
 	}
-	
+
 }
 
 FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess)
-{	
+{
 	MyCurrentTry++;
 	FBullCowCount BullCowCount;
 
@@ -83,7 +90,7 @@ FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess)
 }
 
 bool FBullCowGame::IsIsogram(FString Word) const
-{	
+{
 	if (Word.length() < 2) {
 		return true;
 	}
@@ -93,7 +100,8 @@ bool FBullCowGame::IsIsogram(FString Word) const
 		Letter = tolower(Letter);
 		if (LetterSeen[Letter]) {
 			return false;
-		}else {
+		}
+		else {
 			LetterSeen[Letter] = true;
 		}
 	}
@@ -101,13 +109,13 @@ bool FBullCowGame::IsIsogram(FString Word) const
 }
 
 bool FBullCowGame::IsLower(FString Word) const
-{	
+{
 	for (auto c : Word) {
 		if (!islower(c)) {
 			return false;
 		}
 	}
 	return true;
-	
+
 }
 

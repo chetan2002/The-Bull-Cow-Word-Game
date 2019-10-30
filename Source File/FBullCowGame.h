@@ -34,6 +34,6 @@ public:
 
 	EGuessStatus CheckGuessValidity(FString) const;
 	void Reset(); //TODO make a more rich RV
-	
+	FString GetHiddenWord();
 	FBullCowCount SubmitValidGuess(FString);
 };
