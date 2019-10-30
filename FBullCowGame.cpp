@@ -1,4 +1,7 @@
 #include "FBullCowGame.h"
+#include <vector>
+#include <cstdlib> 
+#include<ctime> 
 #include <map>
 #define TMap std::map
 
@@ -13,14 +16,20 @@ int32 FBullCowGame::GetHiddenWordLength() const { return MyHiddenWord.length(); 
 bool FBullCowGame::IsGameWon() const {	return bGameIsWon; }
 
 int32 FBullCowGame::GetMaxTries() const { 
-	TMap<int32, int32> WordLengthToMaxTries{ {3,4} , {4,7} , {5,10} , {6,12} , {7,14} };
+	TMap<int32, int32> WordLengthToMaxTries{ {3,4} , {4,7} , {5,10} , {6,12} , {7,14} , {8,18} , {9,30} };
 	return WordLengthToMaxTries[MyHiddenWord.length()];
 }
 
 void FBullCowGame::Reset() {
 
-	
-	const FString HIDDEN_WORD = "planet";
+	std::vector<FString> collectionwords{ "planet", "plant", "above", "shaving", "dons", "donkey", "plan", "play", "rely", "day", "say", "may", "face", "mesh",
+		"side", "ride", "rides", "mild", "faint", "pain", "sad", "lad", "mad", "word", "isogram", "six", "four", "five",
+		"ready", "shady", "blond", "chemistry", "sir", "failure", "record" };
+
+		srand(time(0));
+	int32 collectionsize = collectionwords.size();
+	int32 LuckyNo = rand() % collectionsize;
+	const FString HIDDEN_WORD = collectionwords[LuckyNo];
 
 
 	
