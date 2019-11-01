@@ -1,12 +1,10 @@
 #pragma once
 #include<string>
 
-using FString = std::string;
-using int32 = int;
 
 struct FBullCowCount {
-	int32 Bulls = 0;
-	int32 Cows = 0;
+	int Bulls = 0;
+	int Cows = 0;
 };
 
 enum class EGuessStatus {
@@ -19,21 +17,21 @@ enum class EGuessStatus {
 
 class FBullCowGame {
 private:
-	int32 MyCurrentTry;
-	FString MyHiddenWord;
+	int MyCurrentTry;
+	std::string MyHiddenWord;
 	bool bGameIsWon;
-	bool IsIsogram(FString) const;
-	bool IsLower(FString) const;
+	bool IsIsogram(std::string) const;
+	bool IsLower(std::string) const;
 
 public:
 	FBullCowGame();
-	int32 GetMaxTries() const;
-	int32 GetCurrentTry() const;
-	int32 GetHiddenWordLength() const;
+	int GetMaxTries() const;
+	int GetCurrentTry() const;
+	int GetHiddenWordLength() const;
 	bool IsGameWon() const;
 
-	EGuessStatus CheckGuessValidity(FString) const;
+	EGuessStatus CheckGuessValidity(std::string) const;
 	void Reset(); //TODO make a more rich RV
-	FString GetHiddenWord();
-	FBullCowCount SubmitValidGuess(FString);
+	std::string GetHiddenWord();
+	FBullCowCount SubmitValidGuess(std::string);
 };

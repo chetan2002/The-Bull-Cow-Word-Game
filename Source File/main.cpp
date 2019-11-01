@@ -2,12 +2,11 @@
 #include<string>
 #include "FBullCowGame.h"
 #include<cstdlib>
-using FText = std::string;
-using int32 = int;
+
 
 void PrintIntro();
 void PlayGame();
-FText GetValidGuess();
+std::string GetValidGuess();
 bool AskToPlayAgain();
 void PrintGameSummary();
 
@@ -46,13 +45,13 @@ void PrintIntro() {
 
 void PlayGame() {
 
-	int32 MaxTries = BCGame.GetMaxTries();
+	int MaxTries = BCGame.GetMaxTries();
 	std::cout << "MAX TRIES:" << MaxTries << std::endl;
 
 	//loop for required turns
 
 	while (!BCGame.IsGameWon() && BCGame.GetCurrentTry() <= MaxTries) {
-		FText Guess = GetValidGuess();
+		std::string Guess = GetValidGuess();
 
 		FBullCowCount BullCowCount = BCGame.SubmitValidGuess(Guess);
 		std::cout << "Bulls = " << BullCowCount.Bulls;
@@ -65,11 +64,11 @@ void PlayGame() {
 	return;
 }
 
-FText GetValidGuess() {
+std::string GetValidGuess() {
 
-	int32 CurrentTry = BCGame.GetCurrentTry();
+	int CurrentTry = BCGame.GetCurrentTry();
 	EGuessStatus Status = EGuessStatus::Invalid_Status;
-	FText Guess = "";
+	std::string Guess = "";
 
 	do {
 		//get a guess from player
@@ -101,7 +100,7 @@ FText GetValidGuess() {
 bool AskToPlayAgain() {
 
 	std::cout << "Do You want to play again? (Y or N) : ";
-	FText Response = " ";
+	std::string Response = " ";
 	std::getline(std::cin, Response);
 
 	return ((Response[0] == 'y') || (Response[0] == 'Y'));
